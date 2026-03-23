@@ -1,22 +1,17 @@
 "use client";
 
-import { useRef } from "react";
+
 import { Playfair_Display, Karla } from "next/font/google";
 
-const playfair = Playfair_Display({
-  subsets: ["latin"],
-  weight: ["400"],
-});
 
-const karla = Karla({
-  subsets: ["latin"],
-  weight: ["400", "600"],
-});
+const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400"] });
+const karla    = Karla({ subsets: ["latin"], weight: ["400", "600"] });
 
-export default function HomeScrollBanner({ showVideo2, showText2, video2Ref }) {
+export default function HomeScrollBanner({ showVideo2, showText2, video2Ref, onVideoLoop }) {
   return (
     <>
       {/* VIDEO 2 */}
+      <div>
       <div
         className={`absolute inset-0 z-20 transition-opacity duration-[1000ms] ease-in-out
         ${showVideo2 ? "opacity-100" : "opacity-0 pointer-events-none"}`}
@@ -26,8 +21,8 @@ export default function HomeScrollBanner({ showVideo2, showText2, video2Ref }) {
           src="/assets/video2.mp4"
           preload="auto"
           muted
-          loop
           playsInline
+          onEnded={onVideoLoop}
           className="w-full h-full object-cover"
         />
       </div>
@@ -43,7 +38,6 @@ export default function HomeScrollBanner({ showVideo2, showText2, video2Ref }) {
           >
             Uninterrupted Views.<br />Absolute Peace.
           </h2>
-
           <p
             className={`${karla.className} mt-4
             transition-all duration-[2400ms] ease-[cubic-bezier(0.22,1,0.36,1)]
@@ -62,7 +56,6 @@ export default function HomeScrollBanner({ showVideo2, showText2, video2Ref }) {
         ${showText2 ? "opacity-100 blur-0" : "opacity-0 blur-sm pointer-events-none"}`}
       >
         <div className="container-custom flex items-center justify-between py-6">
-
           <button className="flex items-center gap-2 text-white text-lg font-medium tracking-[2px] uppercase">
             <span className="flex flex-col gap-[5px]">
               <span className="block w-5 h-[1.5px] bg-white" />
@@ -70,15 +63,12 @@ export default function HomeScrollBanner({ showVideo2, showText2, video2Ref }) {
             </span>
             Menu
           </button>
-
           <div className="absolute left-1/2 -translate-x-1/2 text-white text-center">
             <img src="/assets/logo.svg" alt="Skyven" className="h-14 w-auto mx-auto" />
           </div>
-
           <button className="border border-white text-white text-sm tracking-[2px] rounded-md uppercase px-5 py-2 hover:bg-white hover:text-black transition-colors duration-300">
             Enquire Now
           </button>
-
         </div>
       </div>
 
@@ -98,7 +88,7 @@ export default function HomeScrollBanner({ showVideo2, showText2, video2Ref }) {
         </div>
       </div>
 
-      {/* SCROLL TO EXPLORE — bottom center */}
+      {/* SCROLL TO EXPLORE — only after video2 completes first loop */}
       <div
         className={`fixed bottom-8 left-1/2 -translate-x-1/2 z-50 text-white text-[11px] tracking-[3px] uppercase
         transition-all duration-[2200ms] ease-[cubic-bezier(0.22,1,0.36,1)]
@@ -106,6 +96,9 @@ export default function HomeScrollBanner({ showVideo2, showText2, video2Ref }) {
       >
         Scroll to explore
       </div>
+</div>
+      {/* RESIDENCES — z-20, slides over the hero on scroll */}
+     
     </>
   );
 }

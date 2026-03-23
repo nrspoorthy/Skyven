@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { useEffect, useRef, useState } from "react";
 import { Playfair_Display, Karla } from "next/font/google";
 
 const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400"] });
@@ -43,7 +44,7 @@ const DEFAULT_CARDS = [
     buttonHref: "#",
   },
   {
-    title: "Sky Suites",
+    title: "4 BHK",
     description:
       "Refined living at elevation. Sky Suites are crafted for those who seek the intimacy of a bespoke home with the convenience of a full-service tower.",
     features: [
@@ -65,27 +66,33 @@ export default function ResidencesSection({
   header = DEFAULT_HEADER,
   cards  = DEFAULT_CARDS,
 }) {
-  const total = cards.length;
+  const total     = cards.length;
+  const headerRef = useRef(null);
+  const [headerH, setHeaderH] = useState(160);
 
-  // Header height ~180px — subtract from card content so nothing overflows
-  const HEADER_H = 140;
+  /* Measure real header height after paint + on resize */
+  useEffect(() => {
+    function measure() {
+      if (headerRef.current) {
+        setHeaderH(headerRef.current.offsetHeight);
+      }
+    }
+    measure();
+    window.addEventListener("resize", measure);
+    return () => window.removeEventListener("resize", measure);
+  }, []);
 
   return (
     <section style={{ backgroundColor: "#FFFFFD" }}>
 
-      {/*
-        ── SCROLL DRIVER ──────────────────────────────────────────────
-        cards.length × 100vh gives scroll budget for stacking.
-        The header is a separate sticky layer at z-index 9 so it
-        always stays visible while cards stack beneath it.
-      */}
       <div style={{ height: `${total * 100}vh`, position: "relative" }}>
 
-        {/* ── HEADER sticky — always visible at top, z below cards ── */}
+        {/* ── HEADER — sticky, measured, always above cards ── */}
         <div
+          ref={headerRef}
           className="sticky top-0 w-full text-center"
           style={{
-            zIndex: 9,
+            zIndex: 50,
             backgroundColor: "#FFFFFD",
             paddingTop: "2.5rem",
             paddingBottom: "1.5rem",
@@ -105,33 +112,24 @@ export default function ResidencesSection({
           </div>
         </div>
 
-        {/* ── STACKING CARDS ─────────────────────────────────────────
-            Each card is sticky top-0 with increasing z-index.
-            Cards slide in on top of each other as user scrolls.
-            paddingTop offsets the sticky header height.
-        ── */}
+        {/* ── STACKING CARDS ── */}
         {cards.map((card, index) => (
           <div
             key={index}
             className="sticky w-full overflow-hidden"
             style={{
+              top: `${headerH}px`,
               zIndex: index + 10,
-              top: `${HEADER_H}px`,
               backgroundColor: "#FFFFFD",
-              height: `calc(100vh - ${HEADER_H}px)`,
+              height: `calc(100vh - ${headerH}px)`,
             }}
           >
-            {/* Top padding to clear the header */}
-            <div
-              className="container-custom h-full"
-              style={{ paddingTop: '2rem' }}
-            >
+            <div className="container-custom h-full">
               <div className="flex h-full items-center gap-0">
 
                 {/* LEFT — text */}
                 <div className="w-[42%] flex flex-col justify-center pr-12 pb-10">
 
-                  {/* Counter */}
                   <p
                     className={`${karla.className} text-[13px] text-[#aaa] mb-6`}
                     style={{ letterSpacing: "0.1em" }}
@@ -139,21 +137,18 @@ export default function ResidencesSection({
                     {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
                   </p>
 
-                  {/* Title */}
                   <h3
                     className={`${playfair.className} text-[52px] leading-[1.1] text-[#2a2a2a] mb-5`}
                   >
                     {card.title}
                   </h3>
 
-                  {/* Description */}
                   <p
                     className={`${karla.className} text-[15px] leading-[1.75] text-[#555] mb-6 max-w-[400px]`}
                   >
                     {card.description}
                   </p>
 
-                  {/* Features */}
                   <ul className="flex flex-col gap-[9px] mb-8">
                     {card.features.map((f, fi) => (
                       <li
@@ -169,7 +164,6 @@ export default function ResidencesSection({
                     ))}
                   </ul>
 
-                  {/* CTA */}
                   <a
                     href={card.buttonHref}
                     className={`${karla.className} inline-flex items-center gap-3 text-white text-[11px] font-semibold tracking-[2px] uppercase px-6 py-3 rounded-sm w-fit transition-opacity hover:opacity-80`}
@@ -183,18 +177,15 @@ export default function ResidencesSection({
 
                 {/* VERTICAL DIVIDER */}
                 <div
-                  className="w-[1px] flex-shrink-0"
-                  style={{
-                    alignSelf: "stretch",
-                    backgroundColor: "rgba(196,163,90,0.25)",
-                  }}
+                  className="w-[1px] flex-shrink-0 self-stretch"
+                  style={{ backgroundColor: "rgba(196,163,90,0.25)" }}
                 />
 
                 {/* RIGHT — image */}
                 <div className="w-[58%] pl-12 flex items-center pb-10">
                   <div
                     className="relative w-full rounded-2xl overflow-hidden"
-                    style={{ height: `calc(100vh - ${HEADER_H + 80}px)` }}
+                    style={{ height: `calc(100vh - ${headerH + 80}px)` }}
                   >
                     <Image
                       src={card.image}
@@ -210,7 +201,6 @@ export default function ResidencesSection({
 
               </div>
             </div>
-
           </div>
         ))}
 
