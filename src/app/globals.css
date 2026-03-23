@@ -30,4 +30,8 @@ body {
   line-height: 16px;
   
 }
-
+@layer components {
+  .container-custom {
+    @apply max-w-7xl mx-auto px-6 lg:px-8;
+  }  
+}
