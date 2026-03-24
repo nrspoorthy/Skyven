@@ -56,7 +56,7 @@ export default function HomeScrollBanner({ showVideo2, showText2, video2Ref, onV
         ${showText2 ? "opacity-100 blur-0" : "opacity-0 blur-sm pointer-events-none"}`}
       >
         <div className="container-custom flex items-center justify-between py-6">
-          <button className="flex items-center gap-2 text-white text-lg font-medium tracking-[2px] uppercase">
+          <button className="flex items-center gap-2 cursor-pointer text-white text-lg font-medium tracking-[2px] uppercase">
             <span className="flex flex-col gap-[5px]">
               <span className="block w-5 h-[1.5px] bg-white" />
               <span className="block w-5 h-[1.5px] bg-white" />
@@ -66,7 +66,7 @@ export default function HomeScrollBanner({ showVideo2, showText2, video2Ref, onV
           <div className="absolute left-1/2 -translate-x-1/2 text-white text-center">
             <img src="/assets/logo.svg" alt="Skyven" className="h-14 w-auto mx-auto" />
           </div>
-          <button className="border border-white text-white text-sm tracking-[2px] rounded-md uppercase px-5 py-2 hover:bg-white hover:text-black transition-colors duration-300">
+          <button className="border cursor-pointer border-white text-white text-sm tracking-[2px] rounded-md uppercase px-5 py-2 hover:bg-white hover:text-black transition-colors duration-300">
             Enquire Now
           </button>
         </div>

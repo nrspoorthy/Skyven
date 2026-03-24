@@ -3,6 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { Playfair_Display, Karla } from "next/font/google";
 import HomeScrollBanner from "./HomeScrollBanner";
+import CloudThreeJS from "./CloudThreeJS";
 
 const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400"] });
 const karla    = Karla({ subsets: ["latin"], weight: ["400", "600"] });
@@ -26,8 +27,6 @@ export default function HeroAnimation({ onScrollReady }) {
 
   function handleVideoLoop() {
     // video2 finished first play — tell parent to reveal ResidencesSection
-    const v = video2Ref.current;
-    if (v) { v.loop = true; v.play(); }
     onScrollReady?.();
   }
 
@@ -53,6 +52,7 @@ export default function HeroAnimation({ onScrollReady }) {
           ${showVideo ? "opacity-100 scale-100" : "opacity-0 scale-110"}`}
           style={{ clipPath: showVideo ? "inset(0% 0% 0% 0%)" : "inset(50% 0% 50% 0%)" }}
         >
+          {/* <CloudThreeJS className="w-full h-full" /> */}
           <video src="/assets/video.mp4" autoPlay muted loop playsInline className="w-full h-full object-cover" />
         </div>
 
