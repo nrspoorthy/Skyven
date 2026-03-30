@@ -32,7 +32,7 @@ export default function HomeScrollBanner({ showVideo2, showText2, video2Ref, onV
         <div className="container-custom">
           <h2
             className={`${playfair.className}
-            transition-all duration-[2200ms] ease-[cubic-bezier(0.22,1,0.36,1)]
+            transition-all duration-[2200ms] !text-white ease-[cubic-bezier(0.22,1,0.36,1)]
             ${showText2 ? "opacity-100 blur-0" : "opacity-0 blur-md"}`}
             style={{ fontSize: '72px', lineHeight: '72px', fontWeight: 400 }}
           >

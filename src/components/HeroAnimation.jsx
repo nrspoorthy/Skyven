@@ -88,7 +88,7 @@ export default function HeroAnimation({ onScrollReady }) {
           ${showVideo2 ? "opacity-0 pointer-events-none" : "opacity-100"}`}>
           <div className="container-custom flex flex-col items-center">
             <h1 className={`${playfair.className}
-              text-[100px] leading-[100px] tracking-[0.12em] uppercase
+              !text-[100px] leading-[100px] tracking-[0.12em] uppercase
               transition-all duration-[2200ms] ease-[cubic-bezier(0.22,1,0.36,1)]
               ${showText ? "opacity-100 blur-0" : "opacity-0 blur-md"}`}>
               BEYOND THE SKYLINE

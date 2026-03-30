@@ -19,19 +19,45 @@
   }
 }
 
+/* globals.css */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-playfair), serif;
+}
+
+h1 {
+  font-size: 72px;
+  line-height: 1.1;
+}
+
+h2 {
+  font-size: 44px;
+  color: #484848;
+  line-height: 1.2;
+}
+
+h3 {
+  font-size: 48px;
+  color: #484848;
+  line-height: 1.2;
+}
+
+p {
+  font-size: 20px;
+  line-height: 1.6;
+}
+span{
+  font-size: 20px;
+}
 body {
-  
   color: var(--foreground);
-    font-family: 'Inter', sans-serif;
+  font-family: var(--font-karla), sans-serif;
   font-style: normal;
   font-weight: 400;
   color: black;
-  font-size: 11px;
-  line-height: 16px;
-  
 }
+
 @layer components {
   .container-custom {
     @apply max-w-7xl mx-auto px-6 lg:px-8;
-  }  
+  }
 }

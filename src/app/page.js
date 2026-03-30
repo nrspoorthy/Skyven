@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <div className="relative">
 
-      {/* HERO — sticky z-10, stays pinned while ResidencesSection scrolls over */}
+     
       <HeroAnimation onScrollReady={() => setScrollReady(true)} />
 
       {/* RESIDENCES — only visible + scrollable after video2 finishes first play */}
@@ -19,7 +19,6 @@ export default function Home() {
         style={{
           visibility:    scrollReady ? "visible"   : "hidden",
           pointerEvents: scrollReady ? "auto"       : "none",
-          // height:0 collapses it so it doesn't affect scroll height until ready
           height:        scrollReady ? "auto"       : 0,
           overflow:      scrollReady ? "visible"    : "hidden",
         }}
