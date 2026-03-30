@@ -13,6 +13,7 @@ const menuItems = [
 
 export default function NavBar({ visible = true }) {
   const [isOpen, setIsOpen] = useState(false);
+  
 
   return (
     <>
@@ -93,9 +94,22 @@ export default function NavBar({ visible = true }) {
           </button>
 
           {/* Logo */}
-          <div className="absolute left-1/2 -translate-x-1/2 text-center">
-            <img src="/assets/logo.svg" alt="Skyven" className="h-14 w-auto mx-auto" />
-          </div>
+         
+<div className="absolute left-1/2 -translate-x-1/2 text-center">
+  {isOpen ? (
+    <img
+      src="/assets/logo-dark.svg"   // 👈 save your SVG here
+      alt="Skyven Dark"
+      className="h-14 w-auto mx-auto"
+    />
+  ) : (
+    <img
+      src="/assets/logo.svg"
+      alt="Skyven"
+      className="h-14 w-auto mx-auto"
+    />
+  )}
+</div>
 
           {/* Enquire Now */}
           <button
