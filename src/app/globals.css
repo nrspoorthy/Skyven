@@ -18,6 +18,10 @@
     --foreground: #ededed;
   }
 }
+/* globals.css */
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-playfair), serif;
+}
 
 /* globals.css */
 h1, h2, h3, h4, h5, h6 {
