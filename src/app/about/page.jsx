@@ -17,7 +17,7 @@ export default function AboutPage() {
       {/* Stats Section */}
       <section className="bg-[#FAF9F6] py-12">
         <div className="container-custom">
-          <h2 className="text-center text-[#484848] tracking-[4px] uppercase text-3xl mb-10">
+          <h2 className="text-center text-[#484848] uppercase text-[44px] mb-10">
             Delivering Excellence With Continued Growth
           </h2>
 
@@ -44,22 +44,22 @@ export default function AboutPage() {
       {/* About Skyven Section */}
       <section className="bg-[#FAF9F6] pt-14 pb-16">
         <div className="container-custom">
-          <div className="text-center max-w-2xl mx-auto mb-10">
-            <h2 className="text-[#484848] tracking-[4px] uppercase text-4xl mb-6">
+          <div className="text-center max-w-4xl mx-auto mb-10">
+            <h2 className="text-[#484848] tracking-[4px] uppercase mb-6">
               About Skyven
             </h2>
-            <p className="text-[#484848] text-sm leading-relaxed mb-3">
+            <p className="text-[#484848] leading-relaxed mb-3">
               SKYVEN isn't a tower. It's an empire in the clouds. An address that doesn't touch the sky, It owns it.
             </p>
-            <p className="text-[#484848] text-sm leading-relaxed">
+            <p className="text-[#484848] leading-relaxed">
               South India's first 63-floor residential masterpiece, SKYVEN rises 755 feet above ordinary, rewriting not just Hyderabad's skyline, but the standards of ultra-luxury living itself.
             </p>
           </div>
 
           {/* Video Thumbnail */}
-          <div className="relative w-full max-w-4xl mx-auto aspect-video rounded-sm overflow-hidden cursor-pointer group">
+          <div className="relative w-full h-[600px] max-w-7xl mx-auto aspect-video rounded-sm overflow-hidden cursor-pointer group">
             <img
-              src="/assets/about-video-thumb.jpg"
+              src="/assets/about-skyven.jpg"
               alt="Skyven Video"
               className="w-full h-full object-cover"
             />

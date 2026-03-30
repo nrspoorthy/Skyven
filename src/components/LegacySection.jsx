@@ -1,89 +1,132 @@
-const legacies = [
-  {
-    id: 1,
-    imageLeft: false,
-    tag: "E–INFRA:",
-    subtitle: "Where Foundations Are Built on Values",
-    paragraphs: [
-      "SKYVEN carries the soul of E-Infra, a brand that believes buildings don't begin with blueprints, they begin with belief.",
-      "Founded by Mr. Meda Ramesh Reddy and Mr. Miryala Prasad, E-Infra is the result of two civil servants who traded the corridors of power for communities of purpose. For them, land was never a commodity. It was a canvas for legacies, stories, and futures yet to be lived.",
-    ],
-    bullets: [
-      { bold: "95,00,000 SFT", text: "of developments" },
-      { bold: "3400+", text: "Premium homes" },
-    ],
-    image: "/assets/legacy-einfra.jpg",
-    imageAlt: "E-Infra Legacy",
-  },
-  {
-    id: 2,
-    imageLeft: true,
-    tag: "PVR:",
-    subtitle: "Subtitle Goes Here",
-    paragraphs: [
-      "Second legacy description paragraph one goes here.",
-      "Second legacy description paragraph two goes here.",
-    ],
-    bullets: [
-      { bold: "50,000+", text: "of something" },
-      { bold: "1000+", text: "Another stat" },
-    ],
-    image: "/assets/legacy-second.jpg",
-    imageAlt: "Second Legacy",
-  },
-];
+import { playfair, karla } from "../app/layout";
+import Image from "next/image";
 
-function LegacyCard({ tag, subtitle, paragraphs, bullets, image, imageAlt, imageLeft }) {
-  const textContent = (
-    <div className={`w-full md:w-1/2 py-16 flex flex-col justify-center ${imageLeft ? "md:pl-16" : "md:pr-16"}`}>
-      <h3 className="text-black text-3xl md:text-4xl mb-6">{tag}</h3>
-      <p className="text-black font-semibold text-sm mb-4">{subtitle}</p>
-      {paragraphs.map((p, i) => (
-        <p key={i} className="text-gray-600 text-xs leading-relaxed mb-4">{p}</p>
-      ))}
-      <ul className="mt-2 space-y-3">
-        {bullets.map((b, i) => (
-          <li key={i} className="flex items-center gap-2 text-xs text-gray-700">
-            <span className="w-1.5 h-1.5 rounded-full bg-gray-500 inline-block flex-shrink-0" />
-            <span><strong>{b.bold}</strong> {b.text}</span>
-          </li>
-        ))}
-      </ul>
-    </div>
-  );
-
-  const imageContent = (
-    <div className="w-full md:w-1/2 h-[480px]">
-      <img
-        src={image}
-        alt={imageAlt}
-        className="w-full h-full object-cover"
-      />
-    </div>
-  );
-
+export default function TwoLegacies() {
   return (
-    <div className="flex flex-col md:flex-row items-stretch">
-      {imageLeft ? imageContent : textContent}
-      {imageLeft ? textContent : imageContent}
-    </div>
-  );
-}
+    <section
+      className={`${karla.variable} ${playfair.variable} bg-[#f5f2eb] py-20`}
+    >
+      <div className="max-w-7xl mx-auto px-6 md:px-8">
 
-export default function LegacySection() {
-  return (
-    <section className="bg-[#FAF9F6]">
-      <div className="container-custom">
-        <h2 className="text-center text-black tracking-[4px] uppercase text-2xl pt-16 mb-12">
+        {/* Heading */}
+        <h2
+          className="text-center tracking-[0.2em] uppercase mb-16 text-[#1a1a1a]"
+          style={{ fontFamily: "var(--font-playfair)" }}
+        >
           The Two Legacies Behind The Legend
         </h2>
-      </div>
 
-      {legacies.map((legacy) => (
-        <div key={legacy.id} className="container-custom">
-          <LegacyCard {...legacy} />
+        {/* E-INFRA Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center mb-20">
+
+          {/* Left: Text — w-full, no max-w constraint */}
+          <div className="space-y-4 w-full">
+            <h3
+              className="font-normal text-[#484848]"
+              style={{ fontFamily: "var(--font-playfair)" }}
+            >
+              E-INFRA:
+            </h3>
+            <p
+              className="font-400 tracking-widest text-[#484848] uppercase text-xs"
+              style={{ fontFamily: "var(--font-karla)" }}
+            >
+              Where Foundations Are Built on Values
+            </p>
+            <p
+              className="text-[#444] leading-relaxed"
+              style={{ fontFamily: "var(--font-karla)" }}
+            >
+              SKYVEN carries the soul of E-Infra, a brand that believes buildings
+              don&apos;t begin with blueprints, they begin with belief.
+            </p>
+            <p
+              className="text-[#484848] leading-relaxed"
+              style={{ fontFamily: "var(--font-karla)" }}
+            >
+              Founded by Mr. Meda Ramesh Reddy and Mr. Miryala Prasad, E-Infra is
+              the result of two civil servants who traded the corridors of power
+              for communities of purpose. For them, land was never a commodity. It
+              was a canvas for legacies, stories, and futures yet to be lived.
+            </p>
+            <ul
+              className="text-[#484848] space-y-1 pl-4 list-disc"
+              style={{ fontFamily: "var(--font-karla)" }}
+            >
+              <li>
+                <p><b>95,00,000 SFT</b> of developments</p>
+              </li>
+              <li>
+                <p><b>3400+</b> Premium homes</p>
+              </li>
+            </ul>
+          </div>
+
+          {/* Right: Image */}
+          <div className="relative w-full h-72 md:h-[500px] rounded overflow-hidden shadow-md">
+            <Image
+              src="/assets/einfra-interior.jpg"
+              alt="E-Infra luxury interior"
+              fill
+              className="object-cover"
+            />
+          </div>
         </div>
-      ))}
+
+        {/* PVR Section */}
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-10 items-center">
+
+          {/* Left: Image */}
+          <div className="relative w-full h-72 md:h-[500px] rounded overflow-hidden shadow-md">
+            <Image
+              src="/assets/pvr-tower.png"
+              alt="PVR Skyven tower"
+              fill
+              className="object-cover"
+            />
+          </div>
+
+          {/* Right: Text — w-full, no max-w constraint */}
+          <div className="space-y-4 w-full">
+            <h3
+              className="font-normal text-[#484848]"
+              style={{ fontFamily: "var(--font-playfair)" }}
+            >
+              PVR:
+            </h3>
+            <p
+              className="font-bold tracking-widest text-[#484848] uppercase text-xs"
+              style={{ fontFamily: "var(--font-karla)" }}
+            >
+              Where Legacy Becomes Lifestyle
+            </p>
+            <p
+              className="text-[#484848] leading-relaxed text"
+              style={{ fontFamily: "var(--font-karla)" }}
+            >
+              Alongside E-Infra stands PVR, the name that doesn&apos;t just
+              promise homes, it delivers generational lifestyles.
+            </p>
+            <p
+              className="text-[#484848] leading-relaxed"
+              style={{ fontFamily: "var(--font-karla)" }}
+            >
+              Founded by Mr. Pingle Vasudeva Reddy, who began working at 14 and
+              transformed industries with sheer grit, PVR is a brand forged in
+              the fires of discipline, excellence, and foresight.
+            </p>
+            <p
+              className="text-[#484848] leading-relaxed"
+              style={{ fontFamily: "var(--font-karla)" }}
+            >
+              In SKYVEN, PVR ensures the project isn&apos;t a residential space,
+              it&apos;s an heirloom, crafted to outlast time, trends, and
+              territories.
+            </p>
+          </div>
+        </div>
+
+      </div>
     </section>
   );
 }

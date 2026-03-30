@@ -20,10 +20,10 @@ const inter = Inter({
   weight: ["400"],
 });
 
-export const metadata = {
-  title: "Skyven",
-  description: "The Most Iconic Tower in the Sky.",
-};
+// export const metadata = {
+//   title: "Skyven",
+//   description: "The Most Iconic Tower in the Sky.",
+// };
 
 export default function RootLayout({ children }) {
   return (
