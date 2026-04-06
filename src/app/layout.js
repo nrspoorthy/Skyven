@@ -1,7 +1,7 @@
 import "./globals.css";
 import { Inter } from "next/font/google";
 import { Playfair_Display, Karla } from "next/font/google";
-import NavBar from "../components/NavBar";
+
 
 
 export const playfair = Playfair_Display({
@@ -30,7 +30,7 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
         <body className={`${playfair.variable} ${karla.variable}`}>
-          <NavBar />
+          
           {children}
           
         </body>

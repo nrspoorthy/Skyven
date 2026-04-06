@@ -76,7 +76,7 @@ export default function AboutPage() {
         </div>
       </section>
 
-      {/* Legacy Section */}
+      {/* Legacy Section */}  
       <LegacySection />
       <Footer />
     </main>

@@ -4,6 +4,7 @@ import { useEffect, useRef, useState } from "react";
 import { Playfair_Display, Karla } from "next/font/google";
 import HomeScrollBanner from "./HomeScrollBanner";
 import CloudThreeJS from "./CloudThreeJS";
+import NavBar from "./NavBar";
 
 const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400"] });
 const karla    = Karla({ subsets: ["latin"], weight: ["400", "600"] });
@@ -39,6 +40,7 @@ export default function HeroAnimation({ onScrollReady }) {
 
   return (
     <div className="sticky top-0 z-10">
+      <NavBar />
       <section className="relative w-full h-screen overflow-hidden bg-white">
 
         {/* WHITE OVERLAY */}

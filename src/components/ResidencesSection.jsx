@@ -3,11 +3,12 @@
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { Playfair_Display, Karla } from "next/font/google";
+import ResidenceModal from "./PenthouseModal";
 
 const playfair = Playfair_Display({ subsets: ["latin"], weight: ["400"] });
 const karla    = Karla({ subsets: ["latin"], weight: ["400", "600"] });
 
-/* ─── DEFAULT CONTENT — override via props on any page ─────────── */
+/* ─── DEFAULT CONTENT ─────────────────────────────────────────── */
 const DEFAULT_HEADER = {
   title: "Sky Residences & Villas",
   subtitle:
@@ -27,7 +28,6 @@ const DEFAULT_CARDS = [
     ],
     image: "/assets/ResidencesSection1.jpg",
     buttonLabel: "Explore Inside",
-    buttonHref: "#",
   },
   {
     title: "Sky Villas",
@@ -41,7 +41,6 @@ const DEFAULT_CARDS = [
     ],
     image: "/assets/ResidencesSection2.jpg",
     buttonLabel: "Explore Inside",
-    buttonHref: "#",
   },
   {
     title: "4 BHK",
@@ -55,7 +54,6 @@ const DEFAULT_CARDS = [
     ],
     image: "/assets/ResidencesSection3.jpg",
     buttonLabel: "Explore Inside",
-    buttonHref: "#",
   },
 ];
 
@@ -68,14 +66,13 @@ export default function ResidencesSection({
 }) {
   const total     = cards.length;
   const headerRef = useRef(null);
-  const [headerH, setHeaderH] = useState(160);
+  const [headerH, setHeaderH]     = useState(160);
+  // null = no modal open; string = title of the card whose modal is open
+  const [activeModal, setActiveModal] = useState(null);
 
-  /* Measure real header height after paint + on resize */
   useEffect(() => {
     function measure() {
-      if (headerRef.current) {
-        setHeaderH(headerRef.current.offsetHeight);
-      }
+      if (headerRef.current) setHeaderH(headerRef.current.offsetHeight);
     }
     measure();
     window.addEventListener("resize", measure);
@@ -85,9 +82,17 @@ export default function ResidencesSection({
   return (
     <section style={{ backgroundColor: "#FFFFFD" }}>
 
+      {/* Modal — renders for whichever card was clicked */}
+      {activeModal !== null && (
+        <ResidenceModal
+          cardTitle={activeModal}
+          onClose={() => setActiveModal(null)}
+        />
+      )}
+
       <div style={{ height: `${total * 100}vh`, position: "relative" }}>
 
-        {/* ── HEADER — sticky, measured, always above cards ── */}
+        {/* ── STICKY HEADER ── */}
         <div
           ref={headerRef}
           className="sticky top-0 w-full text-center"
@@ -99,14 +104,10 @@ export default function ResidencesSection({
           }}
         >
           <div className="container-custom">
-            <h2
-              className={`${playfair.className} text-[44px] leading-[1.1] text-[#2a2a2a]`}
-            >
+            <h2 className={`${playfair.className} text-[44px] leading-[1.1] text-[#2a2a2a]`}>
               {header.title}
             </h2>
-            <p
-              className={`${karla.className} mt-4 text-[15px] leading-[1.7] text-[#666] max-w-[660px] mx-auto`}
-            >
+            <p className={`${karla.className} mt-4 text-[15px] leading-[1.7] text-[#666] max-w-[660px] mx-auto`}>
               {header.subtitle}
             </p>
           </div>
@@ -129,7 +130,6 @@ export default function ResidencesSection({
 
                 {/* LEFT — text */}
                 <div className="w-[42%] flex flex-col justify-center pr-12 pb-10">
-
                   <p
                     className={`${karla.className} text-[13px] text-[#aaa] mb-6`}
                     style={{ letterSpacing: "0.1em" }}
@@ -137,24 +137,17 @@ export default function ResidencesSection({
                     {String(index + 1).padStart(2, "0")} / {String(total).padStart(2, "0")}
                   </p>
 
-                  <h3
-                    className={`${playfair.className} text-[52px] leading-[1.1] text-[#2a2a2a] mb-5`}
-                  >
+                  <h3 className={`${playfair.className} text-[52px] leading-[1.1] text-[#2a2a2a] mb-5`}>
                     {card.title}
                   </h3>
 
-                  <p
-                    className={`${karla.className} text-[15px] leading-[1.75] text-[#555] mb-6 max-w-[400px]`}
-                  >
+                  <p className={`${karla.className} text-[15px] leading-[1.75] text-[#555] mb-6 max-w-[400px]`}>
                     {card.description}
                   </p>
 
                   <ul className="flex flex-col gap-[9px] mb-8">
                     {card.features.map((f, fi) => (
-                      <li
-                        key={fi}
-                        className={`${karla.className} flex items-center gap-3 text-[14px] text-[#444]`}
-                      >
+                      <li key={fi} className={`${karla.className} flex items-center gap-3 text-[14px] text-[#444]`}>
                         <span
                           className="w-[5px] h-[5px] rounded-full flex-shrink-0"
                           style={{ backgroundColor: "#C4A35A" }}
@@ -164,15 +157,15 @@ export default function ResidencesSection({
                     ))}
                   </ul>
 
-                  <a
-                    href={card.buttonHref}
+                  {/* ── Button opens the modal for THIS card ── */}
+                  <button
+                    onClick={() => setActiveModal(card.title)}
                     className={`${karla.className} inline-flex items-center gap-3 text-white text-[11px] font-semibold tracking-[2px] uppercase px-6 py-3 rounded-sm w-fit transition-opacity hover:opacity-80`}
                     style={{ backgroundColor: "#C4A35A" }}
                   >
                     {card.buttonLabel}
                     <span>→</span>
-                  </a>
-
+                  </button>
                 </div>
 
                 {/* VERTICAL DIVIDER */}
@@ -205,7 +198,6 @@ export default function ResidencesSection({
         ))}
 
       </div>
-
     </section>
   );
 }
