@@ -1,6 +1,7 @@
 "use client";
 import HeroBanner from "@/components/HeroBanner";
 import LegacySection from "@/components/LegacySection";
+import Footer from "@/components/Footer";
 
 const stats = [
   { value: "7+", label: "Million SFT Constructed Area" },
@@ -77,6 +78,7 @@ export default function AboutPage() {
 
       {/* Legacy Section */}
       <LegacySection />
+      <Footer />
     </main>
   );
 }

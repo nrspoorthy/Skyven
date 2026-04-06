@@ -13,7 +13,6 @@ const menuItems = [
 
 export default function NavBar({ visible = true }) {
   const [isOpen, setIsOpen] = useState(false);
-  
 
   return (
     <>
@@ -22,7 +21,7 @@ export default function NavBar({ visible = true }) {
 
         .skyven-menu-text {
           font-family: 'Playfair Display', serif;
-          font-size: 80px;
+          font-size: 60px;
           line-height: 84px;
           font-weight: 400;
           letter-spacing: 0em;
@@ -31,7 +30,7 @@ export default function NavBar({ visible = true }) {
         }
 
         .skyven-menu-number {
-          font-size: 13px;
+          font-size: 20px;
           color: #c8c4bc;
           transition: color 0.35s ease;
           font-family: sans-serif;
@@ -72,7 +71,7 @@ export default function NavBar({ visible = true }) {
           <button
             onClick={() => setIsOpen(o => !o)}
             className="flex items-center gap-2 text-lg font-medium tracking-[2px] uppercase transition-colors duration-300"
-            style={{ color: isOpen ? "#1a1a1a" : "white" }}
+            style={{ color: isOpen ? "#1a1a1a" : "white", cursor: "pointer" }}
           >
             {isOpen ? (
               <>
@@ -94,30 +93,31 @@ export default function NavBar({ visible = true }) {
           </button>
 
           {/* Logo */}
-         
-<div className="absolute left-1/2 -translate-x-1/2 text-center">
-  {isOpen ? (
-    <img
-      src="/assets/logo-dark.svg"   // 👈 save your SVG here
-      alt="Skyven Dark"
-      className="h-14 w-auto mx-auto"
-    />
-  ) : (
-    <img
-      src="/assets/logo.svg"
-      alt="Skyven"
-      className="h-14 w-auto mx-auto"
-    />
-  )}
-</div>
+          <div className="absolute left-1/2 -translate-x-1/2 text-center">
+            <Link href="/" aria-label="Go to home page">
+              {isOpen ? (
+                <img
+                  src="/assets/logo-dark.svg"
+                  alt="Skyven Dark"
+                  className="h-14 w-auto mx-auto"
+                />
+              ) : (
+                <img
+                  src="/assets/logo.svg"
+                  alt="Skyven"
+                  className="h-14 w-auto mx-auto"
+                />
+              )}
+            </Link>
+          </div>
 
           {/* Enquire Now */}
           <button
             className="text-sm tracking-[2px] rounded-md uppercase px-5 py-2 transition-all duration-300"
             style={
               isOpen
-                ? { border: "1px solid #bbb", color: "#555", background: "transparent" }
-                : { border: "1px solid white", color: "white", background: "transparent" }
+                ? { border: "1px solid #bbb", color: "#555", background: "transparent", cursor: "pointer" }
+                : { border: "1px solid white", color: "white", background: "transparent", cursor: "pointer" }
             }
             onMouseEnter={e =>
               Object.assign(e.currentTarget.style, {
@@ -127,11 +127,11 @@ export default function NavBar({ visible = true }) {
             onMouseLeave={e => {
               if (isOpen) {
                 Object.assign(e.currentTarget.style, {
-                  background: "transparent", color: "#555", borderColor: "#bbb",
+                  background: "transparent", color: "#555", borderColor: "#bbb", cursor: "pointer",
                 });
               } else {
                 Object.assign(e.currentTarget.style, {
-                  background: "transparent", color: "#fff", borderColor: "#fff",
+                  background: "transparent", color: "#fff", borderColor: "#fff", cursor: "pointer",
                 });
               }
             }}
@@ -142,89 +142,97 @@ export default function NavBar({ visible = true }) {
       </div>
 
       {/* ── Full-screen overlay ── */}
+      {/* Backdrop — covers full screen, handles open/close fade */}
       <div
         style={{
           position: "fixed",
-          top: 0,
-          left: 0,
-          width: "100vw",
-          height: "100vh",
+          inset: 0,
           zIndex: 40,
           backgroundColor: "#f5f2ec",
           opacity: isOpen ? 1 : 0,
           pointerEvents: isOpen ? "auto" : "none",
           transition: "opacity 0.5s ease",
-          display: "flex",
-          alignItems: "flex-start",  /* align from top */
           overflow: "hidden",
         }}
       >
-        {/* Left — contained image card, starts below navbar */}
+        {/* Inner layout: uses container-custom so edges match navbar exactly */}
         <div
-          className="hidden md:block"
+          className="container-custom"
           style={{
-            width: "42%",
-            height: "100vh",
-            flexShrink: 0,
-            paddingTop: "80px",       /* below navbar height */
-            paddingLeft: "32px",
-            paddingBottom: "32px",
-            boxSizing: "border-box",
-          }}
-        >
-          <img
-            src="/assets/menutower.jpg"
-            alt="Skyven Tower"
-            style={{
-              width: "100%",
-              height: "100%",
-              objectFit: "cover",
-              objectPosition: "center top",
-              display: "block",
-            }}
-          />
-        </div>
-
-        {/* Right — nav links, vertically centred */}
-        <div
-          style={{
-            flex: 1,
-            height: "100vh",
             display: "flex",
-            flexDirection: "column",
-            justifyContent: "center",
-            paddingLeft: "64px",
-            paddingRight: "40px",
+            alignItems: "stretch",
+            gap: "100px",
+            /* start just below navbar, fill rest of screen */
+            paddingTop: "120px",
+            height: "100vh",
+            boxSizing: "border-box",
+            
           }}
         >
-          <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
-            {menuItems.map((item, i) => (
-              <li
-                key={item.number}
-                className="skyven-menu-item menu-item-anim"
-                style={{
-                  opacity: isOpen ? 1 : 0,
-                  transform: isOpen ? "translateY(0)" : "translateY(18px)",
-                  transitionDelay: isOpen ? `${i * 60}ms` : "0ms",
-                }}
-              >
-                <Link
-                  href={item.href}
-                  onClick={() => setIsOpen(false)}
+          {/* Left — image, left edge aligns with MENU button */}
+          <div
+            className="hidden md:block"
+            style={{
+              width: "40%",
+              flexShrink: 0,
+              overflow: "hidden",
+            }}
+          >
+            <img
+              src="/assets/menutower.jpg"
+              alt="Skyven Tower"
+              style={{
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+                objectPosition: "center top",
+                display: "block",
+              }}
+            />
+          </div>
+
+          {/* Right — nav links, vertically centred */}
+          <div
+            style={{
+              flex: 1,
+              display: "flex",
+              flexDirection: "column",
+              justifyContent: "center",
+            }}
+          >
+            <ul style={{ listStyle: "none", margin: 0, padding: 0 }}>
+              {menuItems.map((item, i) => (
+                <li
+                  key={item.number}
+                  className="skyven-menu-item menu-item-anim"
                   style={{
-                    textDecoration: "none",
-                    display: "flex",
-                    alignItems: "flex-end",
-                    gap: "14px",
+                    opacity: isOpen ? 1 : 0,
+                    transform: isOpen ? "translateY(0)" : "translateY(18px)",
+                    transitionDelay: isOpen ? `${i * 60}ms` : "0ms",
+                    marginBottom: i < menuItems.length - 1 ? "4px" : 0,
                   }}
                 >
-                  <span className="skyven-menu-number">{item.number}</span>
-                  <span className="skyven-menu-text">{item.label}</span>
-                </Link>
-              </li>
-            ))}
-          </ul>
+                  <Link
+                    href={item.href}
+                    onClick={() => setIsOpen(false)}
+                    style={{
+                      textDecoration: "none",
+                      display: "flex",
+                      alignItems: "flex-end",
+                      gap: "14px",
+                      cursor: "pointer",
+                    }}
+                  >
+                    <span className="skyven-menu-number">{item.number}</span>
+                    <span className="skyven-menu-text">{item.label}</span>
+                  </Link>
+                </li>
+              ))}
+            </ul>
+          </div>
+          
         </div>
+        
       </div>
     </>
   );
